@@ -5,7 +5,7 @@
   </mat-sidenav>
   <!-- Middle -->
   <mat-sidenav-content>
-
+    <module-sandbox *ngIf="module$ | async as module" [module]="module"></module-sandbox>
   </mat-sidenav-content>
   <!-- Right -->
   <mat-sidenav opened="true" position="end" mode="side">

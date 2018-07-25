@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgModule } from '@angular/core';
+import { Observable } from 'rxjs';
+import { ModuleService } from './../../services';
 
 @Component({
   selector: 'module-editor',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ModuleEditorComponent implements OnInit {
 
-  constructor() { }
+  public module$: Observable<NgModule>;
+
+  constructor(
+    private service: ModuleService
+  ) { }
 
   ngOnInit() {
+    this.module$ = this.service.module$;
   }
 
 }

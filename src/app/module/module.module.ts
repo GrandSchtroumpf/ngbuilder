@@ -5,6 +5,7 @@ import { MaterialModule } from '../shared';
 import { ModuleEditorComponent } from './containers/module-editor/module-editor.component';
 import { StyleModule } from '../style/style.module';
 import { TemplateModule } from '../template/template.module';
+import { ModuleSandboxComponent } from './components/module-sandbox/module-sandbox.component';
 
 @NgModule({
   imports: [
@@ -13,7 +14,7 @@ import { TemplateModule } from '../template/template.module';
     StyleModule,
     TemplateModule
   ],
-  declarations: [ModuleEditorComponent],
+  declarations: [ModuleEditorComponent, ModuleSandboxComponent],
   exports: [ModuleEditorComponent],
 })
 export class ModuleModule { }

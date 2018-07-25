@@ -12,3 +12,13 @@ mat-sidenav-container {
 mat-sidenav {
   width: 250px;
 }
+
+
+mat-sidenav[position="start"] {
+  box-shadow: 0 8px 10px -5px rgba(50,50,50,.2), 0 16px 24px 2px rgba(50,50,50,.14), 0 6px 30px 5px rgba(0,0,0,.12)
+}
+
+mat-sidenav[position="end"] {
+  box-shadow: 0 8px 10px -5px rgba(50,50,50,.2), 0 16px 24px 2px rgba(50,50,50,.14), 0 6px 30px 5px rgba(0,0,0,.12)
+}
+
