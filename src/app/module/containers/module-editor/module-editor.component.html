@@ -1,7 +1,7 @@
 <mat-sidenav-container>
   <!-- Left -->
   <mat-sidenav opened="true" position="start" mode="side">
-    Start
+    <router-outlet name="left"></router-outlet>
   </mat-sidenav>
   <!-- Middle -->
   <mat-sidenav-content>
@@ -9,6 +9,6 @@
   </mat-sidenav-content>
   <!-- Right -->
   <mat-sidenav opened="true" position="end" mode="side">
-    End
+    <router-outlet name="right"></router-outlet>
   </mat-sidenav>
 </mat-sidenav-container>

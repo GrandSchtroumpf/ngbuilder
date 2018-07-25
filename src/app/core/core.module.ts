@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { environment } from '../../environments/environment';
+import { CoreRoutingModule } from './core.routing.module';
 
 // External Module
 import { ModuleModule } from '../module/module.module';
@@ -18,6 +19,7 @@ import { CoreLayoutComponent } from './containers/core-layout/core-layout.compon
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    CoreRoutingModule,
     ModuleModule,
     // NGRX
     StoreModule.forRoot(reducer),
