@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-sandbox',
@@ -7,13 +8,17 @@ import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/co
 })
 export class SandboxComponent implements OnInit {
 
+  public template$: Observable<string>;
+  public style$: Observable<string>;
   @ViewChild('tools') tool: ElementRef;
 
   constructor(
-    private renderer: Renderer2
+    private renderer: Renderer2,
   ) { }
 
   ngOnInit() {
+    // this.template$ = this.htmlParser.template$;
+    // this.style$ = this.cssParser.style$;
   }
 
   public getEl(el: HTMLElement) {

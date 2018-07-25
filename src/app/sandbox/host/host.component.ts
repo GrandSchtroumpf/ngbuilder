@@ -23,6 +23,8 @@ import { SandboxService } from './../services/sandbox.service';
   styleUrls: ['./host.component.css']
 })
 export class HostComponent {
+  private _template = '';
+  private _style = '';
   private dynamicCmp: ComponentRef<DynamicComponent>;
   public activeApp: NgModuleRef<any>;
 
@@ -32,6 +34,18 @@ export class HostComponent {
     if (!sandbox) {
       throw new Error(`No sandbox for path ${_path}`);
     }
+    this.changeCmp(sandbox);
+  }
+
+  @Input() set template(template: string) {
+    this._template = template;
+    const sandbox = new Sandbox({template: this._template, styles: [this._style]});
+    this.changeCmp(sandbox);
+  }
+
+  @Input() set style(style: string) {
+    this._style = style;
+    const sandbox = new Sandbox({template: this._template, styles: [this._style]});
     this.changeCmp(sandbox);
   }
 
@@ -57,7 +71,7 @@ export class HostComponent {
    */
   private changeCmp(sandbox: Sandbox) {
     this.container.clear();
-    const tmpCmp = Component(sandbox.cmp)(DynamicComponent);
+    const tmpCmp = Component(sandbox.cmp)(class {} /*DynamicComponent*/);
     const tmpModule = NgModule(sandbox.getModule(tmpCmp))(class {});
     this.zone.runOutsideAngular(() => this.createDynamicComponent(tmpModule));
   }

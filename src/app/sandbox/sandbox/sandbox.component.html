@@ -1,2 +1,2 @@
-<app-host (hoverEl)="getEl($event)" path="builder"></app-host>
+<app-host (hoverEl)="getEl($event)" [style]="style$ | async" [template]="template$ | async"></app-host>
 <div class="tool" #tools></div>
