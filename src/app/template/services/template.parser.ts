@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { serialize, parseFragment } from 'parse5';
+import { serialize, parseFragment, DefaultTreeDocumentFragment } from 'parse5';
 
 @Injectable({
   providedIn: 'root'
@@ -10,17 +10,21 @@ export class TemplateParser {
   private _template = new BehaviorSubject<string>('');
   public template$ = this._template.asObservable();
 
-  constructor() {}
+  public ast: DefaultTreeDocumentFragment;
 
-  public save(ast: Node) {
+  constructor() {
+    this.ast = this.parseFragment('');
+  }
+
+  public save(ast: DefaultTreeDocumentFragment) {
     this._template.next(serialize(ast));
   }
 
-  public serialize(ast: Node) {
+  public serialize(ast: DefaultTreeDocumentFragment) {
     return serialize(ast);
   }
 
-  public parseFragment(template: string) {
+  public parseFragment(template: string): DefaultTreeDocumentFragment {
     return parseFragment(template);
   }
 }

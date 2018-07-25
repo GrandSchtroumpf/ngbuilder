@@ -7,8 +7,10 @@ import { StyleModule } from '../style/style.module';
 import { TemplateModule } from '../template/template.module';
 // Containers
 import { ModuleEditorComponent } from './containers/module-editor/module-editor.component';
+import { ModuleSandboxComponent } from './containers/module-sandbox/module-sandbox.component';
+import { ModuleListComponent } from './containers/module-list/module-list.component';
+
 // Components
-import { ModuleSandboxComponent } from './components/module-sandbox/module-sandbox.component';
 
 @NgModule({
   imports: [
@@ -18,7 +20,7 @@ import { ModuleSandboxComponent } from './components/module-sandbox/module-sandb
     StyleModule,
     TemplateModule
   ],
-  declarations: [ModuleEditorComponent, ModuleSandboxComponent],
+  declarations: [ModuleEditorComponent, ModuleSandboxComponent, ModuleListComponent],
   exports: [ModuleEditorComponent],
 })
 export class ModuleModule { }

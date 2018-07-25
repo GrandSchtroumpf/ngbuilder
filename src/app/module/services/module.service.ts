@@ -23,10 +23,11 @@ export class ModuleService {
       this.style.style$,
       this.template.template$
     ).pipe(
+      // For dynamic class from string see:
+      // https://www.stevefenton.co.uk/2014/07/creating-typescript-classes-dynamically/
       map(([css, html]) => ({template: html, styles: [css]})),
       map(cmpt => Component(cmpt)(class {})),
       map(cmpt => ({declarations: [cmpt]}))
     );
   }
-
 }

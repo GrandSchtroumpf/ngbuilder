@@ -1,3 +1,14 @@
-<p>
-  template-editor works!
-</p>
+<mat-toolbar>
+  <mat-toolbar-row fxLayoutAlign="space-between center">
+    <span>Component</span>
+    <mat-icon (click)="addNode(ast)">add</mat-icon>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-list>
+  <mat-list-item fxLayout="row" fxLayoutAlign="space-between center" *ngFor="let node of ast.childNodes">
+    <span>{{ node.nodeName }}</span>
+    <mat-icon (click)="addText(node)">add</mat-icon>
+  </mat-list-item>
+</mat-list>
+<button mat-button (click)="save()">Save</button>
