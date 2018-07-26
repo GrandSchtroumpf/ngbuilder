@@ -6,7 +6,8 @@ import {MatListModule} from '@angular/material/list';
 import {MatTreeModule} from '@angular/material/tree';
 import {MatIconModule} from '@angular/material/icon';
 import {MatToolbarModule} from '@angular/material/toolbar';
-
+import {MatCardModule} from '@angular/material/card';
+import {MatButtonModule} from '@angular/material/button';
 
 @NgModule({
   imports: [
@@ -15,7 +16,9 @@ import {MatToolbarModule} from '@angular/material/toolbar';
     MatListModule,
     MatTreeModule,
     MatIconModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatCardModule,
+    MatButtonModule
   ],
   exports: [
     FlexLayoutModule,
@@ -23,7 +26,9 @@ import {MatToolbarModule} from '@angular/material/toolbar';
     MatListModule,
     MatTreeModule,
     MatIconModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatCardModule,
+    MatButtonModule
   ]
 })
 export class MaterialModule {}

@@ -22,7 +22,7 @@ import {
 @Injectable({
   providedIn: 'root'
 })
-export class StyleAst {
+export class StyleBuilder {
 
   /**
    * Create the root of the AST

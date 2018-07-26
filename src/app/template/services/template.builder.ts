@@ -15,7 +15,7 @@ import {
 @Injectable({
   providedIn: 'root'
 })
-export class TemplateAst implements TreeAdapter {
+export class TemplateBuilder implements TreeAdapter {
   public createDocument(): DefaultTreeDocument {
     return {
       nodeName: '#document',

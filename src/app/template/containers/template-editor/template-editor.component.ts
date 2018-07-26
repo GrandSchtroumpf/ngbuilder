@@ -1,7 +1,7 @@
-import { TemplateAst } from './../../services/template.ast';
+import { Router } from '@angular/router';
 import { DefaultTreeDocumentFragment, DefaultTreeParentNode } from 'parse5';
 import { Component, OnInit } from '@angular/core';
-import { TemplateParser } from './../../services';
+import { TemplateParser, TemplateBuilder } from './../../services';
 
 @Component({
   selector: 'template-editor',
@@ -13,23 +13,30 @@ export class TemplateEditorComponent implements OnInit {
   public ast: DefaultTreeDocumentFragment;
 
   constructor(
-    public astBuilder: TemplateAst,
-    public parser: TemplateParser
+    private router: Router,
+    private builder: TemplateBuilder,
+    private parser: TemplateParser
   ) { }
 
   ngOnInit() {
     this.ast = this.parser.ast;
   }
 
+  public select(node: DefaultTreeParentNode) {
+    this.router.navigate([{
+      outlets: {right: ['']}
+    }]);
+  }
+
   public addNode(node: DefaultTreeParentNode) {
     node.childNodes.push(
-      this.astBuilder.createElement('h1', '', [])
+      this.builder.createElement('h1', '', [])
     );
   }
 
   public addText(node) {
     node.childNodes.push(
-      this.astBuilder.createTextNode('Hello World')
+      this.builder.createTextNode('Hello World')
     );
   }
 

@@ -7,7 +7,7 @@
 
 <mat-list>
   <mat-list-item fxLayout="row" fxLayoutAlign="space-between center" *ngFor="let node of ast.childNodes">
-    <span>{{ node.nodeName }}</span>
+    <span (click)="select(node)">{{ node.nodeName }}</span>
     <mat-icon (click)="addText(node)">add</mat-icon>
   </mat-list-item>
 </mat-list>

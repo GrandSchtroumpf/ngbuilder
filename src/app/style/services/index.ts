@@ -1,2 +1,2 @@
-export * from './style.ast';
+export * from './style.builder';
 export * from './style.parser';
