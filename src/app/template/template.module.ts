@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MaterialModule } from './../shared/material.module';
+import { MaterialModule, UtilsModule } from '../shared';
 
 // Containers
 import { TemplateEditorComponent } from './containers/template-editor/template-editor.component';
@@ -9,7 +9,8 @@ import { TemplateElementComponent } from './components/template-element/template
 @NgModule({
   imports: [
     CommonModule,
-    MaterialModule
+    MaterialModule,
+    UtilsModule
   ],
   declarations: [TemplateEditorComponent, TemplateElementComponent]
 })

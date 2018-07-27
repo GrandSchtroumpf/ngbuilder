@@ -1,0 +1,22 @@
+mat-accordion {
+  width: 100%;
+}
+
+.toggle-icon {
+  transform: rotate(0);
+  transition: transform 0.3s ease-in-out;
+}
+.toggle-icon.opened {
+  transform: rotate(90deg);
+}
+
+.child-node {
+  padding-left: 5px;
+}
+
+.node {
+  cursor: pointer;
+}
+.node.selected {
+  background-color: rgb(240, 240, 240);
+}

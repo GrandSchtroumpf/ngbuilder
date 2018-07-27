@@ -24,6 +24,8 @@ import {
 })
 export class StyleBuilder {
 
+  constructor() {}
+
   /**
    * Create the root of the AST
    */

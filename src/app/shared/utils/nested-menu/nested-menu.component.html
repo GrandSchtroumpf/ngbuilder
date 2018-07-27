@@ -1,0 +1,25 @@
+<mat-menu #childMenu="matMenu" [overlapTrigger]="false">
+  <span *ngFor="let child of items">
+    <!-- Handle branch node menu items -->
+    <span *ngIf="child.children && child.children.length > 0">
+      <button mat-menu-item color="primary" [matMenuTriggerFor]="menu.childMenu">
+        <mat-icon *ngIf="child.icon">{{child.icon}}</mat-icon>
+        <span>{{child.name}}</span>
+      </button>
+      <nested-menu (select)="selectItem($event)" #menu [items]="child.children"></nested-menu>
+    </span>
+    <!-- Handle leaf node menu items -->
+    <span *ngIf="(!!child.name && !child.children) || (!!child.name && child.children.length === 0)">
+      <button (click)="selectItem(child)" mat-menu-item>
+        <mat-icon *ngIf="child.icon">{{child.icon}}</mat-icon>
+        <span>{{child.name}}</span>
+      </button>
+    </span>
+    <!-- Handle leaf node with no name-->
+    <span *ngIf="!child.name">
+      <button (click)="selectItem(child)" mat-menu-item>
+        <span>{{child}}</span>
+      </button>
+    </span>
+  </span>
+</mat-menu>

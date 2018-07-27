@@ -8,9 +8,13 @@ import { StyleEditorComponent } from './contrainers/style-editor/style-editor.co
 import { StyleRuleComponent } from './components/style-rule/style-rule.component';
 import { StyleDeclarationGroupComponent } from './components/style-declaration-group/style-declaration-group.component';
 import { StyleDeclarationComponent } from './components/style-declaration/style-declaration.component';
+import { MaterialModule } from '../shared';
 
 @NgModule({
-  imports: [CommonModule],
+  imports: [
+    CommonModule,
+    MaterialModule
+  ],
   declarations: [
     StyleEditorComponent,
     StyleRuleComponent,

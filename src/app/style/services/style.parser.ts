@@ -11,7 +11,11 @@ export class StyleParser {
   private _style = new BehaviorSubject<string>('');
   public style$ = this._style.asObservable();
 
-  constructor() {}
+  public ast: Stylesheet;
+
+  constructor() {
+    this.ast = this.parse('');
+  }
 
   public save(ast: Stylesheet) {
     this._style.next(stringify(ast));

@@ -19,8 +19,10 @@ export const routes: Routes = [
       { path: 'sandbox', component: ModuleSandboxComponent}
     ]
   },
-  { outlet: 'left', path: '', component: TemplateEditorComponent },
-  { outlet: 'right', path: '', component: StyleEditorComponent }
+  // Left
+  { outlet: 'tree', path: '', component: TemplateEditorComponent },
+  // Right
+  { outlet: 'view', path: ':selector', component: StyleEditorComponent }
 ];
 
 @NgModule({

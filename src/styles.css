@@ -11,3 +11,7 @@ html, body, core-layout {
   margin: 0;
   display: block;
 }
+
+mat-icon {
+  cursor: pointer;
+}
