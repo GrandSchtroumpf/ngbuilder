@@ -1,5 +1,6 @@
 export interface Attributes { [type: string]: string; }
 
+// TODO : create a TreeElement and ShowTreeElement
 export interface TreeElement {
   name: string;
   att: Attributes;
@@ -8,4 +9,5 @@ export interface TreeElement {
   children?: number[];
   text?: string;
   expanded?: boolean;
+  visible?: boolean;
 }

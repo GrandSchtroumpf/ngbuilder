@@ -1,3 +1,11 @@
 .selected {
   background-color: rgb(240, 240, 240);
 }
+
+mat-icon {
+  transform: rotate(0);
+  transition: transform 0.3s ease-in-out;
+}
+mat-icon.expanded {
+  transform: rotate(90deg);
+}

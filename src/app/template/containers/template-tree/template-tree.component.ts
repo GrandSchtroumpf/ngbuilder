@@ -22,19 +22,39 @@ export class TemplateTreeComponent implements OnInit {
   constructor(private parser: TemplateParser) {}
 
   ngOnInit() {
-    this._tree$.next(this.parser.parse('<main><h1>Hello World</h1></main><section><nav></nav></section>'));
+    const tree = this.parser.parse('<main><h1>Hello World</h1></main><section><nav></nav></section>');
+    this.checkChildrenVisbility(tree, tree[0]);
+    this._tree$.next(tree);
   }
 
-  public toggle(node: TreeElement) { node.expanded = !node.expanded; }
+  public toggle(tree: TreeElement[], node: TreeElement) {
+    node.expanded = !node.expanded;
+    this.checkChildrenVisbility(tree, node);
+  }
 
-  public visible(node: TreeElement) {
+  /**
+   * Set the visibility of a node depending on its parent
+   * @param tree The whole tree
+   * @param node The node to check the visibility of
+   */
+  private setVisible(tree: TreeElement[], node: TreeElement) {
     // TODO: check only when click on parent
-    const tree = this._tree$.getValue();
-    console.log('check', this.counter++);
     const isParentExpanded = (child: TreeElement) => {
       return !!child.parent ? tree[child.parent].expanded && isParentExpanded(tree[child.parent]) : true;
     };
-    return !node.parent || isParentExpanded(node);
+    node.visible = !node.parent || isParentExpanded(node);
+  }
+
+  /**
+   * Check the visibility of all children
+   * @param tree The whole tree
+   * @param node The parent node to check the children.
+   */
+  public checkChildrenVisbility(tree: TreeElement[], node: TreeElement) {
+    node.children.forEach(child => {
+      this.setVisible(tree, tree[child]);
+      if (tree[child].children.length > 0) { this.checkChildrenVisbility(tree, tree[child]); }
+    });
   }
 
   /**
@@ -57,10 +77,21 @@ export class TemplateTreeComponent implements OnInit {
     const parent = tree[this.selected];
     const child = { name: tag, att: {}, children: [], level: parent.level + 1, parent: this.selected };
     const newIndex = getLastIndex(parent, this.selected);
+    // Update all parent and children affected
+    tree.forEach((node, i) => {
+      if (i >= newIndex && node.parent >= newIndex) {
+        node.parent++;
+      }
+      if (i >= newIndex && node.children.length > 0) {
+        node.children = node.children.map(c => ++c);
+      }
+      if (node.children.length > 0 && !!node.children.find(c => c === newIndex)) {
+        node.children = node.children.map(c => (c === newIndex) ? ++c : c);
+      }
+    });
     parent.children.push(newIndex);
-    // Change parents from node that pointer to the index of the new node
-    tree.filter(node => node.parent === newIndex).forEach(node => node.parent = newIndex + 1);
     tree.splice(newIndex, 0, child);
+    this.checkChildrenVisbility(tree, tree[0]);
     this._tree$.next([...tree]);
   }
 }
