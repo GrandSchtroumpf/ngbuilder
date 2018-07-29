@@ -1,50 +1,51 @@
+import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
-import { DefaultTreeDocumentFragment, DefaultTreeElement, DefaultTreeNode } from 'parse5';
-import { Component, OnInit, HostListener } from '@angular/core';
-import { TemplateParser, TemplateBuilder } from './../../services';
+import { DefaultTreeElement, Attribute } from 'parse5';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { TemplateBuilder, TemplateService } from './../../services';
 import { MatTreeNestedDataSource } from '@angular/material/tree';
 import { NestedTreeControl } from '@angular/cdk/tree';
 
 import { TAGS } from './../../models';
+import { takeWhile, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'template-editor',
   templateUrl: './template-editor.component.html',
   styleUrls: ['./template-editor.component.css']
 })
-export class TemplateEditorComponent implements OnInit {
+export class TemplateEditorComponent implements OnInit, OnDestroy {
 
-  public ast: DefaultTreeDocumentFragment;
+  private alive = true;
+  public tree$: Observable<any[]>;
+  public selected: DefaultTreeElement;
+
   public treeControl: NestedTreeControl<DefaultTreeElement>;
   public treeDataSource: MatTreeNestedDataSource<DefaultTreeElement>;
-  public selected: DefaultTreeElement;
   public tagList = TAGS;
 
   constructor(
     private router: Router,
     private builder: TemplateBuilder,
-    private parser: TemplateParser
+    private service: TemplateService
   ) { }
 
 
   ngOnInit() {
-    this.ast = this.parser.ast;
-    this.selected = this.ast as DefaultTreeElement;
+    this.treeControl = new NestedTreeControl(this.getChildren);
     this.treeDataSource = new MatTreeNestedDataSource();
-    this.treeControl = new NestedTreeControl(this.getNodeChildren);
-    // TODO : subscription
-    this.treeDataSource.data = this.ast.childNodes as DefaultTreeElement[];
+    this.service.tree$.pipe(
+      tap(tree => this.selected = this.selected ? this.selected : tree as DefaultTreeElement),
+      takeWhile(() => this.alive)
+    ).subscribe(tree => this.treeDataSource.data = tree.childNodes as DefaultTreeElement[]);
   }
 
-  @HostListener('click') clickOutside() { this.selected = this.ast as DefaultTreeElement; }
-
-  private getNodeChildren(node: DefaultTreeElement) { return node.childNodes as DefaultTreeElement[]; }
-
-  public hasChildren(index: number, node: DefaultTreeElement) {
-    return node.childNodes
-    && node.childNodes.length > 0
-    && node.childNodes.every(child => (child.nodeName !== '#text') && (child.nodeName !== '#comment'));
+  ngOnDestroy() {
+    this.alive = false;
   }
+
+  private getChildren = (node: DefaultTreeElement) => node.childNodes as DefaultTreeElement[];
+  public hasChildren = (index: number, node: DefaultTreeElement) => !!node.childNodes;
 
   public select(node: DefaultTreeElement) {
     this.selected = node;
@@ -53,15 +54,14 @@ export class TemplateEditorComponent implements OnInit {
     }]);
   }
 
-  public addElement(node: DefaultTreeElement, tag: string) {
-    node.childNodes.push(
-      this.builder.createElement(tag, '', [])
-    );
-    this.treeDataSource.data = this.ast.childNodes as DefaultTreeElement[];
+  public addElement(name: string) {
+    const el = this.builder.createElement(name, '', []);
+    el.parentNode = this.selected;
+    this.selected.childNodes.push(el);
+    this.service.updateTree();
   }
 
   public save() {
-    this.parser.save(this.ast);
+    this.service.save();
   }
-
 }

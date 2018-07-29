@@ -1,3 +1,6 @@
+export type NodeType =
+| 'stylesheet';
+
 export interface Node {
   type: string;
 }

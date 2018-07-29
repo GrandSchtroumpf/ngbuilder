@@ -1,2 +1,2 @@
 export * from './style.builder';
-export * from './style.parser';
+export * from './style.service';

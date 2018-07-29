@@ -9,25 +9,25 @@
 
 <mat-tree [dataSource]="treeDataSource" [treeControl]="treeControl">
   <!-- Node with no Child -->
-  <mat-tree-node (click)="select(node)" *matTreeNodeDef="let node; when !hasChildren">
-    <button mat-icon-button disabled aria-label="invisiable button"></button>
+  <mat-tree-node class="node" *matTreeNodeDef="let node; when !hasChildren" matTreeNodePadding matTreeNodeToggle [ngClass]="{selected: selected === node}"
+    (click)="select(node)">
     {{ node.nodeName }}
   </mat-tree-node>
 
   <!-- Node with children -->
   <mat-nested-tree-node *matTreeNodeDef="let node; when hasChildren">
-    <div class="node" [ngClass]="{selected: selected === node}" (click)="select(node)" fxLayout="row" fxLayoutAlign="start center">
+    <div class="node" [ngClass]="{'selected': selected === node}" (click)="select(node)">
       <button mat-icon-button aria-label="toggle node" matTreeNodeToggle>
         <mat-icon [ngClass]="{'opened': treeControl.isExpanded(node)}" class="toggle-icon">arrow_right</mat-icon>
       </button>
       <span>{{ node.nodeName }}</span>
     </div>
-    <div class="child-node" *ngIf="treeControl.isExpanded(node)">
+    <div class="child" *ngIf="treeControl.isExpanded(node)">
       <ng-container matTreeNodeOutlet></ng-container>
     </div>
   </mat-nested-tree-node>
 </mat-tree>
 
-<button mat-button (click)="save()">Save</button>
+<button mat-raised-button (click)="save()">Save</button>
 
-<nested-menu (select)="addElement(selected, $event)" #allTags [items]="tagList"></nested-menu>
+<nested-menu (select)="addElement($event)" #allTags [items]="tagList"></nested-menu>

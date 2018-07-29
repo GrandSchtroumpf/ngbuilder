@@ -1,8 +1,8 @@
-import { Injectable, NgModule, Component, Type } from '@angular/core';
-import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
+import { Injectable, NgModule, Component } from '@angular/core';
+import { combineLatest, Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
-import { StyleParser } from '../../style/services/style.parser';
-import { TemplateParser } from './../../template/services/template.parser';
+import { StyleService } from '../../style/services';
+import { TemplateService } from './../../template/services';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +12,8 @@ export class ModuleService {
   public module$: Observable<NgModule>;
 
   constructor(
-    private style: StyleParser,
-    private template: TemplateParser
+    private style: StyleService,
+    private template: TemplateService
   ) {
     /**
      * Modify module with a new Component on template / style change
@@ -23,6 +23,7 @@ export class ModuleService {
       this.style.style$,
       this.template.template$
     ).pipe(
+      tap(([css, html]) => console.log(css, html)),
       // For dynamic class from string see:
       // https://www.stevefenton.co.uk/2014/07/creating-typescript-classes-dynamically/
       map(([css, html]) => ({template: html, styles: [css]})),

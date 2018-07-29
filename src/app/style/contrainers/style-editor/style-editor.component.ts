@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { StyleBuilder, StyleParser } from '../../services';
+import { StyleBuilder, StyleService } from '../../services';
 import { Stylesheet } from '../../models';
 
 @Component({
@@ -18,11 +18,11 @@ export class StyleEditorComponent implements OnInit {
   constructor(
     private routes: ActivatedRoute,
     private builder: StyleBuilder,
-    private parser: StyleParser
+    private service: StyleService
   ) { }
 
   ngOnInit() {
-    this.ast = this.parser.ast;
+    this.ast = this.service.ast;
     this.selector$ = this.routes.paramMap.pipe(
       map(params => params.get('selector'))
       // TODO: get rule or create one
@@ -39,6 +39,6 @@ export class StyleEditorComponent implements OnInit {
   }
 
   public save() {
-    this.parser.save(this.ast);
+    this.service.save(this.ast);
   }
 }

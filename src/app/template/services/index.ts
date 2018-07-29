@@ -1,2 +1,2 @@
 export * from './template.builder';
-export * from './template.parser';
+export * from './template.service';
