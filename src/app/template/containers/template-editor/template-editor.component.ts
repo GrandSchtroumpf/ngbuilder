@@ -17,7 +17,7 @@ import { takeWhile, tap } from 'rxjs/operators';
 export class TemplateEditorComponent implements OnInit, OnDestroy {
 
   private alive = true;
-  public tree$: Observable<any[]>;
+  public tree$: Observable<DefaultTreeElement>;
   public selected: DefaultTreeElement;
 
   public treeControl: NestedTreeControl<DefaultTreeElement>;
@@ -32,12 +32,16 @@ export class TemplateEditorComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
+    this.tree$ = this.service.tree$.pipe(tap(console.log));
+
     this.treeControl = new NestedTreeControl(this.getChildren);
     this.treeDataSource = new MatTreeNestedDataSource();
     this.service.tree$.pipe(
       tap(tree => this.selected = this.selected ? this.selected : tree as DefaultTreeElement),
       takeWhile(() => this.alive)
-    ).subscribe(tree => this.treeDataSource.data = tree.childNodes as DefaultTreeElement[]);
+    ).subscribe(tree => {
+      this.treeDataSource.data = tree.childNodes as DefaultTreeElement[];
+    });
   }
 
   ngOnDestroy() {
@@ -45,7 +49,9 @@ export class TemplateEditorComponent implements OnInit, OnDestroy {
   }
 
   private getChildren = (node: DefaultTreeElement) => node.childNodes as DefaultTreeElement[];
-  public hasChildren = (index: number, node: DefaultTreeElement) => !!node.childNodes;
+  public hasChildren = (index: number, node: DefaultTreeElement) => {
+    return !!node.childNodes && node.childNodes.length > 0;
+  }
 
   public select(node: DefaultTreeElement) {
     this.selected = node;
@@ -62,6 +68,6 @@ export class TemplateEditorComponent implements OnInit, OnDestroy {
   }
 
   public save() {
-    this.service.save();
+    this.service.updateTemplate();
   }
 }

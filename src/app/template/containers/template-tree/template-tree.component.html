@@ -1,0 +1,21 @@
+<mat-toolbar>
+  <mat-toolbar-row fxLayoutAlign="space-between center">
+    <span>Component</span>
+    <button mat-icon-button aria-label="add an element" [matMenuTriggerFor]="allTags.childMenu">
+      <mat-icon>add</mat-icon>
+    </button>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<div *ngIf="tree$ | async as tree">
+  <div class="node" [ngClass]="{'selected': selected === i}" *ngFor="let node of tree; let i = index" (click)="selected = i">
+    <div class="level" [style.paddingLeft]="node.level*10+'px'" *ngIf="visible(node)">
+      <button (click)="toggle(node)" mat-icon-button>
+        <mat-icon *ngIf="node.children.length > 0">arrow_right</mat-icon>
+      </button>
+        {{node.name}}
+    </div>
+  </div>
+</div>
+
+<nested-menu (select)="addElement($event)" #allTags [items]="tagList"></nested-menu>

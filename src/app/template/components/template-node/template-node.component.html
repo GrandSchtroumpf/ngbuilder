@@ -1,0 +1,15 @@
+<div class="node" [ngClass]="{'selected': selected === node}" (click)="select(node)">
+  <button (click)="toggle()" *ngIf="isExpandable" mat-icon-button aria-label="toggle node">
+    <mat-icon [ngClass]="{'opened': isExpanded}" class="toggle-icon">arrow_right</mat-icon>
+  </button>
+  <button mat-icon-button disabled *ngIf="!isExpandable"></button>
+  <span>{{ node.nodeName }}</span>
+</div>
+
+<div class="child" *ngIf="isExpandable && isExpanded">
+
+  <template-node *ngFor="let child of children | async"
+    [tree]="child"
+    (selected)="select($event)"></template-node>
+
+</div>

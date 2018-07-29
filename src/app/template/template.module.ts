@@ -5,6 +5,9 @@ import { MaterialModule, UtilsModule } from '../shared';
 // Containers
 import { TemplateEditorComponent } from './containers/template-editor/template-editor.component';
 import { TemplateElementComponent } from './components/template-element/template-element.component';
+import { TemplateNodeComponent } from './components/template-node/template-node.component';
+import { TemplateTreeComponent } from './containers/template-tree/template-tree.component';
+
 
 @NgModule({
   imports: [
@@ -12,6 +15,6 @@ import { TemplateElementComponent } from './components/template-element/template
     MaterialModule,
     UtilsModule
   ],
-  declarations: [TemplateEditorComponent, TemplateElementComponent]
+  declarations: [TemplateEditorComponent, TemplateElementComponent, TemplateNodeComponent, TemplateTreeComponent]
 })
 export class TemplateModule { }

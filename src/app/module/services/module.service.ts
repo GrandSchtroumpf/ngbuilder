@@ -23,7 +23,6 @@ export class ModuleService {
       this.style.style$,
       this.template.template$
     ).pipe(
-      tap(([css, html]) => console.log(css, html)),
       // For dynamic class from string see:
       // https://www.stevefenton.co.uk/2014/07/creating-typescript-classes-dynamically/
       map(([css, html]) => ({template: html, styles: [css]})),

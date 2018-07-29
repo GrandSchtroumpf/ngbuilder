@@ -7,6 +7,7 @@ import { ModuleEditorComponent } from './containers/module-editor/module-editor.
 
 // External Components
 // TODO : Use module
+import { TemplateTreeComponent } from './../template/containers/template-tree/template-tree.component';
 import { TemplateEditorComponent } from '../template/containers/template-editor/template-editor.component';
 import { StyleEditorComponent } from './../style/contrainers/style-editor/style-editor.component';
 
@@ -20,7 +21,7 @@ export const routes: Routes = [
     ]
   },
   // Left
-  { outlet: 'tree', path: '', component: TemplateEditorComponent },
+  { outlet: 'tree', path: '', component: TemplateTreeComponent/*TemplateEditorComponent*/ },
   // Right
   { outlet: 'view', path: ':selector', component: StyleEditorComponent }
 ];
