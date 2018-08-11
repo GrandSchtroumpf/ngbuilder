@@ -1,14 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MaterialModule } from '../shared';
 
 // Contrainers
-import { StyleEditorComponent } from './contrainers/style-editor/style-editor.component';
+import { StyleEditorComponent } from './containers/style-editor/style-editor.component';
+import { StyleGroupComponent } from './containers/style-group/style-group.component';
+import { StyleBackgroundComponent } from './containers/style-background/style-background.component';
 
 // Components
-import { StyleRuleComponent } from './components/style-rule/style-rule.component';
-import { StyleDeclarationGroupComponent } from './components/style-declaration-group/style-declaration-group.component';
-import { StyleDeclarationComponent } from './components/style-declaration/style-declaration.component';
-import { MaterialModule } from '../shared';
 
 @NgModule({
   imports: [
@@ -17,9 +16,8 @@ import { MaterialModule } from '../shared';
   ],
   declarations: [
     StyleEditorComponent,
-    StyleRuleComponent,
-    StyleDeclarationGroupComponent,
-    StyleDeclarationComponent
+    StyleGroupComponent,
+    StyleBackgroundComponent,
   ],
   exports: [StyleEditorComponent]
 })

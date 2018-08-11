@@ -1,0 +1,11 @@
+<mat-toolbar>
+  <mat-toolbar-row>
+    <span>{{ (rule$ | async).selectors }}</span>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<section *ngIf="rule$ | async as rule">
+<style-group *ngFor="let group of groups" [rule]="rule" [group]="group"></style-group>
+</section>
+
+<button mat-button (click)="save()">Save</button>

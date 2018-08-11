@@ -7,13 +7,14 @@ import { CoreRoutingModule } from './core.routing.module';
 // External Module
 import { ModuleModule } from '../module/module.module';
 
-// NGRX
-import { StoreModule } from '@ngrx/store';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { reducer } from './reducers';
-
 // Contrainers
 import { CoreLayoutComponent } from './containers/core-layout/core-layout.component';
+
+// NGRX
+import { reducers, metaReducers } from './reducers';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 @NgModule({
   imports: [
@@ -21,12 +22,9 @@ import { CoreLayoutComponent } from './containers/core-layout/core-layout.compon
     BrowserAnimationsModule,
     CoreRoutingModule,
     ModuleModule,
-    // NGRX
-    StoreModule.forRoot(reducer),
-    StoreDevtoolsModule.instrument({
-      maxAge: 25,
-      logOnly: environment.production
-    })
+    StoreModule.forRoot(reducers, { metaReducers }),
+    EffectsModule.forRoot([]),
+    !environment.production ? StoreDevtoolsModule.instrument() : [],
   ],
   declarations: [CoreLayoutComponent],
   bootstrap: [CoreLayoutComponent]

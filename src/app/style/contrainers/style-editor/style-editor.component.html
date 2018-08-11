@@ -1,8 +1,0 @@
-<mat-toolbar>
-  <mat-toolbar-row>
-    <span>{{ selector$ | async }}</span>
-  </mat-toolbar-row>
-</mat-toolbar>
-
-<input (change)="addColor($event.target.value)" type="color" matInput placeholder="color"/>
-<button mat-button (click)="save()">Save</button>

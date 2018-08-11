@@ -1,0 +1,36 @@
+<mat-accordion>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{ group.name }}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <mat-list *ngFor="let declaration of group.declarations">
+      <mat-list-item [ngSwitch]="declaration.type">
+        <!-- Color -->
+        <ng-container *ngSwitchCase="types.color">
+          <mat-form-field>
+            <input type="color" matInput [placeholder]="declaration.property" />
+          </mat-form-field>
+        </ng-container>
+        <!-- Number -->
+        <ng-container *ngSwitchCase="types.number">
+          <mat-form-field>
+            <input type="number" matInput [placeholder]="declaration.property" />
+          </mat-form-field>
+        </ng-container>
+        <!-- Select -->
+        <ng-container *ngSwitchCase="types.select">
+          <mat-form-field>
+            <mat-select [placeholder]="declaration.property">
+              <mat-option *ngFor="let option of declaration.options" [value]="option">
+                {{ option }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </ng-container>
+      </mat-list-item>
+    </mat-list>
+  </mat-expansion-panel>
+</mat-accordion>

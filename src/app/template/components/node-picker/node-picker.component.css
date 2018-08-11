@@ -1,0 +1,24 @@
+:host {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+section {
+  opacity: 0;
+  position: absolute;
+  pointer-events: none;
+}
+
+.hover {
+  outline: 1px solid black;
+}
+
+.selected {
+  outline: 2px solid black;
+}
+
+.edit {
+  pointer-events: auto;
+}

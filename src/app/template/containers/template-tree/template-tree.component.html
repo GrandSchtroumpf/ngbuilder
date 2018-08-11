@@ -7,15 +7,17 @@
   </mat-toolbar-row>
 </mat-toolbar>
 
-<div *ngIf="tree$ | async as tree">
-  <div class="node" [ngClass]="{'selected': selected === i}" *ngFor="let node of tree; let i = index" (click)="selected = i">
-    <div class="level" [style.paddingLeft]="node.level*10+'px'" *ngIf="node.visible">
+<mat-list *ngIf="(tree$ | async) as tree">
+  <div class="node" [ngClass]="{'selected': (selected$ | async) === i}" *ngFor="let node of tree; let i = index" (click)="select(i)">
+    <mat-list-item class="level" [style.paddingLeft]="node.level*10+'px'" *ngIf="node.visible">
       <button (click)="toggle(tree, node)" mat-icon-button>
         <mat-icon [ngClass]="{'expanded': node.expanded}" *ngIf="node.children.length > 0">arrow_right</mat-icon>
       </button>
-        {{node.name}}
-    </div>
+      {{node.name}}
+    </mat-list-item>
   </div>
-</div>
+  <button mat-raised-button (click)="compile(tree)">Compile</button>
+</mat-list>
+
 
 <nested-menu (select)="addElement($event)" #allTags [items]="tagList"></nested-menu>

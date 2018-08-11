@@ -15,6 +15,8 @@ import {MatInputModule} from '@angular/material/input';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatMenuModule} from '@angular/material/menu';
+import {MatSelectModule} from '@angular/material/select';
+
 
 @NgModule({
   imports: [
@@ -30,7 +32,8 @@ import {MatMenuModule} from '@angular/material/menu';
     MatInputModule,
     MatExpansionModule,
     MatFormFieldModule,
-    MatMenuModule
+    MatMenuModule,
+    MatSelectModule
   ],
   exports: [
     CdkTreeModule,
@@ -45,7 +48,8 @@ import {MatMenuModule} from '@angular/material/menu';
     MatInputModule,
     MatExpansionModule,
     MatFormFieldModule,
-    MatMenuModule
+    MatMenuModule,
+    MatSelectModule
   ]
 })
 export class MaterialModule {}

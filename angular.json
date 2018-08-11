@@ -118,5 +118,8 @@
       }
     }
   },
-  "defaultProject": "ngbuilder"
+  "defaultProject": "ngbuilder",
+  "cli": {
+    "defaultCollection": "@ngrx/schematics"
+  }
 }

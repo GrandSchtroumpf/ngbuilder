@@ -26,8 +26,25 @@ export class ModuleService {
       // For dynamic class from string see:
       // https://www.stevefenton.co.uk/2014/07/creating-typescript-classes-dynamically/
       map(([css, html]) => ({template: html, styles: [css]})),
-      map(cmpt => Component(cmpt)(class {})),
-      map(cmpt => ({declarations: [cmpt]}))
+      map(cmpt => Component(cmpt)(this.createClass())),
+      map(cmpt => ({declarations: [cmpt]} as NgModule))
     );
+  }
+
+  /**
+   * TODO: Add ctx
+   * @param ctx The context of the class
+   */
+  private createClass(ctx?: any): any {
+    return class {
+    /*
+    constructor() {
+      for (let key in ctx) {
+        Context.prototype[key] = ctx[key];
+      }
+    }
+    */
+    };
+
   }
 }

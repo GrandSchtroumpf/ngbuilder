@@ -3,36 +3,46 @@ import {
   OnInit,
   NgModule,
   ViewChild,
-  ViewContainerRef,
   NgZone,
   Compiler,
   Input,
-  Type
+  Type,
+  ChangeDetectionStrategy
 } from '@angular/core';
+import { NodePickerComponent } from '../../../template';
+import { ModuleViewComponent } from '../../components/module-view/module-view.component';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'module-sandbox',
   templateUrl: './module-sandbox.component.html',
   styleUrls: ['./module-sandbox.component.css']
 })
 export class ModuleSandboxComponent implements OnInit {
 
-  @Input() set module(config: NgModule) {
+  @Input()
+  private set module(config: NgModule) {
     this.changeCmp(config);
   }
-  @ViewChild('vc', { read: ViewContainerRef })
-  container: ViewContainerRef;
+
+  @ViewChild(ModuleViewComponent)
+  private moduleView: ModuleViewComponent;
+  @ViewChild(NodePickerComponent)
+  private nodePicker: NodePickerComponent;
 
   constructor(private compiler: Compiler, private zone: NgZone) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.moduleView.onenter.subscribe(el => this.nodePicker.enter(el));
+    this.moduleView.onleave.subscribe(el => this.nodePicker.leave(el));
+    this.moduleView.onclick.subscribe(el => this.nodePicker.click(el));
+  }
 
   /**
    * Change the current component
    * @param sandbox Sandbox with module and component data
    */
   private changeCmp(module: NgModule) {
-    this.container.clear();
     const tmpModule = NgModule(module)(class {});
     this.zone.runOutsideAngular(() => this.createDynamicComponent(tmpModule));
   }
@@ -46,7 +56,9 @@ export class ModuleSandboxComponent implements OnInit {
       .compileModuleAndAllComponentsAsync<any>(moduleType)
       .then(factories => {
         const cmpFactory = factories.componentFactories[0];
-        this.container.createComponent<any>(cmpFactory);
+        this.moduleView.cmpt = cmpFactory;
+        this.nodePicker.init();
       });
   }
+
 }

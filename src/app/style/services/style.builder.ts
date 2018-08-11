@@ -46,7 +46,7 @@ export class StyleBuilder {
    */
   public createRule(
     selectors: string[],
-    declarations: (Declaration | Comment)[]
+    declarations: (Declaration | Comment)[] = []
   ): Rule {
     return { type: 'rule', selectors, declarations };
   }

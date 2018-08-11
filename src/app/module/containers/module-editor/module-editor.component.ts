@@ -13,17 +13,11 @@ export class ModuleEditorComponent implements OnInit {
   public module$: Observable<NgModule>;
 
   constructor(
-    private service: ModuleService,
-    private router: Router
+    private service: ModuleService
   ) { }
 
   ngOnInit() {
     this.module$ = this.service.module$;
-    /*
-    this.router.navigate([{
-      outlets: { left: ['left'], right: ['right']}
-    }]);
-    */
   }
 
 }

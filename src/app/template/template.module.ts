@@ -3,18 +3,23 @@ import { CommonModule } from '@angular/common';
 import { MaterialModule, UtilsModule } from '../shared';
 
 // Containers
-import { TemplateEditorComponent } from './containers/template-editor/template-editor.component';
-import { TemplateElementComponent } from './components/template-element/template-element.component';
-import { TemplateNodeComponent } from './components/template-node/template-node.component';
 import { TemplateTreeComponent } from './containers/template-tree/template-tree.component';
+import { StoreModule } from '@ngrx/store';
+import * as fromTemplate from './+state/template.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { TemplateEffects } from './+state/template.effects';
+import { NodePickerComponent } from './components/node-picker/node-picker.component';
 
 
 @NgModule({
   imports: [
     CommonModule,
     MaterialModule,
-    UtilsModule
+    UtilsModule,
+    StoreModule.forFeature('template', fromTemplate.reducer),
+    EffectsModule.forFeature([TemplateEffects])
   ],
-  declarations: [TemplateEditorComponent, TemplateElementComponent, TemplateNodeComponent, TemplateTreeComponent]
+  declarations: [TemplateTreeComponent, NodePickerComponent],
+  exports: [NodePickerComponent]
 })
 export class TemplateModule { }
