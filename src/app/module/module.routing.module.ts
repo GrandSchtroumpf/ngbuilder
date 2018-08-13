@@ -9,7 +9,7 @@ import { ModuleEditorComponent } from './containers/module-editor/module-editor.
 // TODO : Use module
 //  TREE
 import { ModuleListComponent } from './containers/module-list/module-list.component';
-import { CmptListComponent } from './../component/containers/cmpt-list/cmpt-list.component';
+import { CmptListComponent, ComponentListGuard } from './../component';
 import { TemplateTreeComponent } from './../template/containers/template-tree/template-tree.component';
 
 // VIEW
@@ -26,7 +26,12 @@ export const routes: Routes = [
   },
   // Left
   { outlet: 'tree', path: '', component: ModuleListComponent },
-  { outlet: 'tree', path: 'cmpt-list', component: CmptListComponent },
+  {
+    outlet: 'tree',
+    path: 'cmpt-list',
+    canActivate: [ComponentListGuard],
+    component: CmptListComponent
+  },
   { outlet: 'tree', path: 'template', component: TemplateTreeComponent },
   // Right
   { outlet: 'view', path: ':selector', component: StyleEditorComponent }

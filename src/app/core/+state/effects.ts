@@ -15,10 +15,4 @@ export class RouterEffects {
     private actions$: Actions
   ) {}
 
-  @Effect()
-  changeModule$ = this.actions$.pipe(
-    ofType(fromRouter.ActionTypes.UpdateModuleParams),
-    map((action: fromRouter.UpdateModuleParams) => action.payload),
-    map(({ name }) => this.router)
-  );
 }

@@ -27,7 +27,6 @@ export class TemplateTreeComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    const template$ = this.store.pipe(select(selectTemplate));
     const tree = this.service.tree;
     this.checkChildrenVisbility(tree, tree[0]);
     this.service.tree = tree;

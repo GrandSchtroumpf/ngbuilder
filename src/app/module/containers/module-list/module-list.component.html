@@ -9,7 +9,7 @@
 
 <mat-nav-list>
   <!-- Modules -->
-  <mat-list-item *ngFor="let module of modules$ | async" (click)="open(module)">
+  <mat-list-item *ngFor="let module of modules$ | async" (click)="open(module.name)">
     <a>{{ module.name }}</a>
   </mat-list-item>
 </mat-nav-list>

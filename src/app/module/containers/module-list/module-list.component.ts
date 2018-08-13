@@ -32,16 +32,12 @@ export class ModuleListComponent implements OnInit {
     this.store.dispatch(new AddModule({module}));
   }
 
-  public open(module: ModuleFile) {
-    this.store.dispatch(new SelectModule({path: module.path}));
-    setTimeout(() => {
-      this.router.navigate(['', {
-        outlets: {tree: 'cmpt-list'}
-      }], {
-        queryParams: { module: module.name },
-      });
-    }, 200);
-
+  public open(name: string) {
+    this.router.navigate(['', {
+      outlets: {tree: 'cmpt-list'}
+    }], {
+      queryParams: { module: name }
+    });
   }
 
 

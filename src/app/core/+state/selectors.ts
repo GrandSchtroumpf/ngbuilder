@@ -13,5 +13,5 @@ export const selectState = createSelector(
 
 export const selectModuleName = createSelector(
   selectState,
-  (state: RouterStateUrl) => state.queryParams['module']
+  (state: RouterStateUrl) => state.queryParams['module'] as string
 );
