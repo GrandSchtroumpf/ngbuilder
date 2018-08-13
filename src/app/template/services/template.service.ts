@@ -51,8 +51,15 @@ export class TemplateService {
     };
 
     const parent = tree[this.selected];
-    const child = { name: tag, att: {}, children: [], level: parent.level + 1, parent: this.selected };
     const newIndex = getLastIndex(parent, this.selected);
+    const child = {
+      name: tag,
+      att: {},
+      children: [],
+      level: parent.level + 1,
+      parent: this.selected,
+      index: newIndex
+    };
     // Update all parent and children affected
     tree.forEach((node, i) => {
       // Add 1 to all node parent after this index

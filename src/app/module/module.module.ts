@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ModuleRoutingModule } from './module.routing.module';
 import { MaterialModule } from '../shared';
 
+import { ComponentModule } from '../component/component.module';
 import { StyleModule } from '../style/style.module';
 import { TemplateModule } from '../template/template.module';
 
@@ -14,8 +15,7 @@ import { ModuleListComponent } from './containers/module-list/module-list.compon
 // NGRX
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import * as fromModule from './+state/module.reducer';
-import { ModuleEffects } from './+state/module.effects';
+import * as fromModule from './+state';
 import { ModuleViewComponent } from './components/module-view/module-view.component';
 
 // Components
@@ -25,10 +25,10 @@ import { ModuleViewComponent } from './components/module-view/module-view.compon
     CommonModule,
     MaterialModule,
     ModuleRoutingModule,
+    ComponentModule,
     StyleModule,
     TemplateModule,
-    StoreModule.forFeature('module', fromModule.reducer),
-    EffectsModule.forFeature([ModuleEffects]),
+    // StoreModule.forFeature('modules', fromModule.reducer),
   ],
   declarations: [ModuleEditorComponent, ModuleSandboxComponent, ModuleListComponent, ModuleViewComponent],
   exports: [ModuleEditorComponent],

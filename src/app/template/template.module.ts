@@ -5,9 +5,9 @@ import { MaterialModule, UtilsModule } from '../shared';
 // Containers
 import { TemplateTreeComponent } from './containers/template-tree/template-tree.component';
 import { StoreModule } from '@ngrx/store';
-import * as fromTemplate from './+state/template.reducer';
+import * as fromTemplate from './+state/reducer';
 import { EffectsModule } from '@ngrx/effects';
-import { TemplateEffects } from './+state/template.effects';
+import { TemplateEffects } from './+state/effects';
 import { NodePickerComponent } from './components/node-picker/node-picker.component';
 
 
@@ -16,8 +16,8 @@ import { NodePickerComponent } from './components/node-picker/node-picker.compon
     CommonModule,
     MaterialModule,
     UtilsModule,
-    StoreModule.forFeature('template', fromTemplate.reducer),
-    EffectsModule.forFeature([TemplateEffects])
+    // StoreModule.forFeature('template', fromTemplate.reducer),
+    // EffectsModule.forFeature([TemplateEffects])
   ],
   declarations: [TemplateTreeComponent, NodePickerComponent],
   exports: [NodePickerComponent]

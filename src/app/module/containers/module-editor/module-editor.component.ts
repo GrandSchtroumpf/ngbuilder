@@ -1,7 +1,6 @@
 import { Component, OnInit, NgModule } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ModuleService } from './../../services';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'module-editor',

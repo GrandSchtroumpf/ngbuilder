@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Store, select } from '@ngrx/store';
+import { State } from '../../../core';
 import { Observable } from 'rxjs';
 import { TemplateService } from './../../services';
 
 import { TreeElement, TAGS } from './../../models';
+import { selectTemplate } from '../../+state';
 
 @Component({
-  selector: 'app-template-tree',
+  selector: 'template-tree',
   templateUrl: './template-tree.component.html',
   styleUrls: ['./template-tree.component.css']
 })
@@ -17,9 +20,14 @@ export class TemplateTreeComponent implements OnInit {
   public tagList = TAGS;
 
 
-  constructor(private service: TemplateService, private router: Router) {}
+  constructor(
+    private store: Store<State>,
+    private service: TemplateService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
+    const template$ = this.store.pipe(select(selectTemplate));
     const tree = this.service.tree;
     this.checkChildrenVisbility(tree, tree[0]);
     this.service.tree = tree;

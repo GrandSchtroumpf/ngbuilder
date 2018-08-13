@@ -1,3 +1,4 @@
+import { ModuleService } from './../../services/module.service';
 import {
   Component,
   OnInit,
@@ -30,12 +31,19 @@ export class ModuleSandboxComponent implements OnInit {
   @ViewChild(NodePickerComponent)
   private nodePicker: NodePickerComponent;
 
-  constructor(private compiler: Compiler, private zone: NgZone) {}
+  constructor(
+    private service: ModuleService,
+    private compiler: Compiler,
+    private zone: NgZone
+  ) {}
 
   ngOnInit() {
     this.moduleView.onenter.subscribe(el => this.nodePicker.enter(el));
     this.moduleView.onleave.subscribe(el => this.nodePicker.leave(el));
-    this.moduleView.onclick.subscribe(el => this.nodePicker.click(el));
+    this.moduleView.onclick.subscribe((el: HTMLElement) => {
+      this.service.selectElement(parseInt(el.getAttribute('ngid'), 10));
+      // this.nodePicker.click(el);
+    });
   }
 
   /**

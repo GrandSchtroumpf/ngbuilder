@@ -2,7 +2,7 @@ import { TestBed, inject } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
 import { Observable } from 'rxjs';
 
-import { TemplateEffects } from './template.effects';
+import { TemplateEffects } from './effects';
 
 describe('TemplateEffects', () => {
   let actions$: Observable<any>;

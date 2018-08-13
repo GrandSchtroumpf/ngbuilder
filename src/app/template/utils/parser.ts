@@ -18,10 +18,10 @@ export class TemplateParser {
         this.index++;
         this.level++;
         this.opened.push(this.index);
-        this.tree.push({name, att, children: []});
+        this.tree.push({name, att, children: [], index: this.index});
       },
       ontext: (text: string) => {
-        // Supprimer les espaces et \n\t ...
+        // TODO: Supprimer les espaces et \n\t ...
         this.tree[this.tree.length - 1].text = text;
       },
       onclosetag: (name: string) => {
@@ -41,7 +41,7 @@ export class TemplateParser {
   private init() {
     this.index = 0;
     this.level = 0;
-    this.tree = [{name: 'root', att: {}, children: []}];
+    this.tree = [{name: 'root', att: {}, children: [], index: 0}];
     // i, is the ref to the index of this node in "tree"
     this.opened = [0];
   }

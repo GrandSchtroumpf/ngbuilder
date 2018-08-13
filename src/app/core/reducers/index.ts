@@ -1,18 +1,24 @@
+import { routerReducer, RouterReducerState } from '@ngrx/router-store';
 import {
-  ActionReducer,
   ActionReducerMap,
-  createFeatureSelector,
-  createSelector,
   MetaReducer
 } from '@ngrx/store';
 import { environment } from '../../../environments/environment';
 
-export interface State {
+import * as fromModule from '../../module/+state';
+import * as fromComponent from '../../component/+state';
+import { RouterStateUrl } from '../+state';
 
+export interface State {
+  router: RouterReducerState<RouterStateUrl>;
+  modules: fromModule.State;
+  components: fromComponent.State;
 }
 
 export const reducers: ActionReducerMap<State> = {
-
+  router: routerReducer,
+  modules: fromModule.reducer,
+  components: fromComponent.reducer
 };
 
 

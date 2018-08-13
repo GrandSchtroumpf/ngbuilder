@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { ModuleActionTypes } from './module.actions';
+import { TemplateActionTypes } from './actions';
 
 @Injectable()
-export class ModuleEffects {
+export class TemplateEffects {
 
   @Effect()
-  loadFoos$ = this.actions$.pipe(ofType(ModuleActionTypes.LoadModules));
+  loadFoos$ = this.actions$.pipe(ofType(TemplateActionTypes.LoadTree));
 
   constructor(private actions$: Actions) {}
 }

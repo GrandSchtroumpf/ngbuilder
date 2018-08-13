@@ -45,6 +45,9 @@ export class ModuleService {
     }
     */
     };
+  }
 
+  public selectElement(index: number) {
+    this.template.selected = index;
   }
 }

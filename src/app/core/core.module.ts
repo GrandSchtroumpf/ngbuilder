@@ -15,6 +15,8 @@ import { reducers, metaReducers } from './reducers';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { StoreRouterConnectingModule, RouterStateSerializer } from '@ngrx/router-store';
+import { RouterSerializer } from './+state';
 
 @NgModule({
   imports: [
@@ -22,9 +24,14 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     BrowserAnimationsModule,
     CoreRoutingModule,
     ModuleModule,
+    // NGRX
     StoreModule.forRoot(reducers, { metaReducers }),
     EffectsModule.forRoot([]),
+    StoreRouterConnectingModule.forRoot({ stateKey: 'router' }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
+  ],
+  providers: [
+    { provide: RouterStateSerializer, useClass: RouterSerializer },
   ],
   declarations: [CoreLayoutComponent],
   bootstrap: [CoreLayoutComponent]

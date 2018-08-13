@@ -1,0 +1,23 @@
+<mat-toolbar *ngIf="module$ | async as module">
+  <mat-toolbar-row fxLayoutAlign="space-between center">
+    <span>{{ module.name }}</span>
+    <button mat-icon-button aria-label="add a Component" (click)="isForm = true">
+      <mat-icon>add</mat-icon>
+    </button>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<section *ngIf="module$ | async as module">
+
+  <mat-nav-list>
+    <!-- Modules -->
+    <mat-list-item *ngFor="let cmpt of cmpts$ | async" (click)="open(cmpt)">
+      <a>{{ cmpt.name }}</a>
+    </mat-list-item>
+  </mat-nav-list>
+
+  <mat-form-field *ngIf="isForm">
+    <input #name (keyup.enter)="create(module, name.value)" (blur)="create(module, name.value)" matInput placeholder="Name" />
+  </mat-form-field>
+
+</section>

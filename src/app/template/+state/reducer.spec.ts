@@ -1,6 +1,6 @@
-import { reducer, initialState } from './module.reducer';
+import { reducer, initialState } from './reducer';
 
-describe('Module Reducer', () => {
+describe('Template Reducer', () => {
   describe('unknown action', () => {
     it('should return the initial state', () => {
       const action = {} as any;

@@ -1,3 +1,19 @@
-<mat-list>
-  <mat-list-item *ngFor="let path of paths$ | async"> </mat-list-item>
-</mat-list>
+<mat-toolbar>
+  <mat-toolbar-row fxLayoutAlign="space-between center">
+    <span>Modules</span>
+    <button mat-icon-button aria-label="add a module" (click)="isForm = true">
+      <mat-icon>add</mat-icon>
+    </button>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-nav-list>
+  <!-- Modules -->
+  <mat-list-item *ngFor="let module of modules$ | async" (click)="open(module)">
+    <a>{{ module.name }}</a>
+  </mat-list-item>
+</mat-nav-list>
+
+<mat-form-field *ngIf="isForm">
+  <input #name autofocus (keyup.enter)="create(name.value)" (blur)="create(name.value)" matInput placeholder="Name" />
+</mat-form-field>
