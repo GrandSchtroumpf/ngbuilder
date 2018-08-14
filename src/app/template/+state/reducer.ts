@@ -1,6 +1,6 @@
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import { TreeElement } from '../models';
-import { TemplateActions, TemplateActionTypes } from './actions';
+import { TemplateActions, ActionTypes } from './actions';
 
 export interface State extends EntityState<TreeElement> {
   // additional entities state properties
@@ -24,19 +24,25 @@ export function reducer(
   action: TemplateActions
 ): State {
   switch (action.type) {
-    /** ADD */
-    case TemplateActionTypes.AddElement: {
-      return adapter.addOne(action.payload.element, state);
+
+    /** UPSERT */
+    case ActionTypes.UpsertTree: {
+      return adapter.upsertMany(action.payload.tree, state);
     }
 
     /** UPDATE */
-    case TemplateActionTypes.UpdateElement: {
+    case ActionTypes.UpdateElement: {
       return adapter.updateOne(action.payload.element, state);
     }
 
     /** LOAD */
-    case TemplateActionTypes.LoadTree: {
+    case ActionTypes.LoadTree: {
       return adapter.addAll(action.payload.tree, state);
+    }
+
+    /** SELECT */
+    case ActionTypes.SelectElement: {
+      return {...state, selectedId: action.payload.index};
     }
 
     default: {
@@ -51,3 +57,4 @@ export const {
   selectAll,
   selectTotal,
 } = adapter.getSelectors();
+

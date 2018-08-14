@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+// NGRX
 import { Store, select } from '@ngrx/store';
 import { State } from '../../../core';
-import { Observable } from 'rxjs';
 import { TemplateService } from './../../services';
+import { CompileTree,  SelectElement, AddElement } from '../../+state/actions';
+import { selectTree, selectCurrentId } from '../../+state/selectors';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { TreeElement, TAGS } from './../../models';
-import { selectTemplate } from '../../+state';
 
 @Component({
   selector: 'template-tree',
@@ -27,18 +30,27 @@ export class TemplateTreeComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    /*
     const tree = this.service.tree;
     this.checkChildrenVisbility(tree, tree[0]);
     this.service.tree = tree;
-    this.tree$ = this.service.tree$;
-    this.selected$ = this.service.selected$;
+    */
+    this.tree$ = this.store.pipe(
+      select(selectTree),
+      map(tree => this.checkChildrenVisbility(tree, tree[0]))
+    ); // this.service.tree$;
+    this.selected$ = this.store.pipe(select(selectCurrentId));
+    // this.selected$ = this.service.selected$;
   }
 
   public select(index: number) {
+    this.store.dispatch(new SelectElement({index}));
+    /*
     this.service.selected = index;
     this.router.navigate([{
       outlets: {view: [this.service.tree[index].name]}
-    }]);
+    }], {queryParamsHandling: 'merge'});
+    */
   }
 
   /**
@@ -56,7 +68,9 @@ export class TemplateTreeComponent implements OnInit {
    */
   private setVisible(tree: TreeElement[], node: TreeElement) {
     const isParentExpanded = (child: TreeElement) => {
-      return !!child.parent ? tree[child.parent].expanded && isParentExpanded(tree[child.parent]) : true;
+      return !!child.parent
+        ? tree[child.parent].expanded && isParentExpanded(tree[child.parent])
+        : true;
     };
     node.visible = !node.parent || isParentExpanded(node);
   }
@@ -66,11 +80,14 @@ export class TemplateTreeComponent implements OnInit {
    * @param tree The whole tree
    * @param node The parent node to check the children.
    */
-  public checkChildrenVisbility(tree: TreeElement[], node: TreeElement) {
+  public checkChildrenVisbility(tree: TreeElement[], node: TreeElement): TreeElement[] {
     node.children.forEach(child => {
       this.setVisible(tree, tree[child]);
-      if (tree[child].children.length > 0) { this.checkChildrenVisbility(tree, tree[child]); }
+      if (tree[child].children.length > 0) {
+        this.checkChildrenVisbility(tree, tree[child]);
+      }
     });
+    return tree;
   }
 
   /**
@@ -78,15 +95,19 @@ export class TemplateTreeComponent implements OnInit {
    * @param tag The name of the Element to add
    */
   public addElement(tag: string) {
+    this.store.dispatch(new AddElement({tag}));
+    /*
     const tree = this.service.addElement(tag);
     this.checkChildrenVisbility(tree, tree[0]);
     this.service.tree = tree;
+    */
   }
 
   /**
    *
    */
-  public compile() {
-    this.service.updateTemplate();
+  public compile(tree: TreeElement[]) {
+    this.store.dispatch(new CompileTree({tree}));
+    // this.service.updateTemplate();
   }
 }

@@ -7,7 +7,7 @@ import { UpdateModule, selectCurrentModule } from '../../../module/+state';
 import { State } from '../../../core';
 import { Observable } from 'rxjs';
 
-import { CmptFile } from './../../models';
+import { ICmptFile, CmptFile } from './../../models';
 import { IModuleFile } from '../../../module/models';
 
 @Component({
@@ -18,7 +18,7 @@ import { IModuleFile } from '../../../module/models';
 export class CmptListComponent implements OnInit {
 
   public module$: Observable<IModuleFile>;
-  public cmpts$: Observable<CmptFile[]>;
+  public cmpts$: Observable<ICmptFile[]>;
   public isForm: boolean;
 
   constructor(
@@ -46,6 +46,7 @@ export class CmptListComponent implements OnInit {
       outlets: {tree: 'template'}
     }], {
       queryParams: { cmpt: cmpt.name },
+      queryParamsHandling: 'merge'
     });
   }
 

@@ -13,9 +13,14 @@ export const selectTemplate = createSelector(
 );
 
 /** Select all Elements as an array */
-export const selectAllElements = createSelector(
+export const selectTree = createSelector(
   selectTemplateState,
   fromTemplate.selectAll
+);
+
+export const selectCurrentId = createSelector(
+  selectTemplateState,
+  (state: fromTemplate.State) => state.selectedId
 );
 
 /** The Element at the index */

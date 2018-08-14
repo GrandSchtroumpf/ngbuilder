@@ -20,6 +20,11 @@ export const selectAllCmpts = createSelector(
   }
 );
 
+export const selectCurrentId = createSelector(
+  selectState,
+  (state) => state.selectedId
+);
+
 export const selectCurrentCmpt = createSelector(
   selectState,
   (state) => state.entities[state.selectedId]

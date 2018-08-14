@@ -36,8 +36,12 @@ export class TemplateService {
    * Add an Element in the tree and update it
    * @param tag The name of the Element to add
    */
-  public addElement(tag: string): TreeElement[] {
-    const tree = [...this.tree];
+  public addElement(
+    tag: string,
+    tree: TreeElement[],
+    selected: number
+  ): TreeElement[] {
+    // const tree = [...this.tree];
 
     // Recusive function to get the index of the last child
     const getLastIndex = (node: TreeElement, nodeIndex: number) => {
@@ -50,14 +54,14 @@ export class TemplateService {
       }
     };
 
-    const parent = tree[this.selected];
-    const newIndex = getLastIndex(parent, this.selected);
+    const parent = tree[selected]; // this.selected
+    const newIndex = getLastIndex(parent, selected); // this.selected
     const child = {
       name: tag,
       att: {},
       children: [],
       level: parent.level + 1,
-      parent: this.selected,
+      parent: selected, // this.selected,
       index: newIndex
     };
     // Update all parent and children affected
@@ -75,8 +79,10 @@ export class TemplateService {
         node.children = node.children.map(c => (c === newIndex) ? ++c : c);
       }
     });
+    console.log('tree before', [...tree]);
     parent.children.push(newIndex);
     tree.splice(newIndex, 0, child);
-    return tree;
+    console.log('tree after', [...tree]);
+    return [...tree];
   }
 }

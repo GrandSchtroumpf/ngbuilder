@@ -10,7 +10,7 @@ import {
   Type,
   ChangeDetectionStrategy
 } from '@angular/core';
-import { NodePickerComponent } from '../../../template';
+import { NodePickerComponent } from '../../../template/components';
 import { ModuleViewComponent } from '../../components/module-view/module-view.component';
 
 @Component({

@@ -5,14 +5,14 @@ export enum ActionTypes {
   Go = '[Router] Go',
   Back = '[Router] Back',
   Forward = '[Router] Forward',
-  AddQueryParams = '[Router] Add Query Params'
+  UpsertQueryParams = '[Router] Upsert Query Params'
 }
 
 export class Go implements Action {
   readonly type = ActionTypes.Go;
   constructor(public payload: {
     path: any[];
-    query?: object;
+    outlets?: {[key: string]: string};
     extras?: NavigationExtras;
   }) {}
 }
@@ -25,8 +25,8 @@ export class Forward implements Action {
   readonly type = ActionTypes.Forward;
 }
 
-export class UpdateQueryParams implements Action {
-  readonly type = ActionTypes.AddQueryParams;
+export class UpsertQueryParams implements Action {
+  readonly type = ActionTypes.UpsertQueryParams;
   constructor(public payload: { queryParams: Params }) {}
 }
 
@@ -35,4 +35,4 @@ export type RouterActions =
   | Go
   | Back
   | Forward
-  | UpdateQueryParams;
+  | UpsertQueryParams;
